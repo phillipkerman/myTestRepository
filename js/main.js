@@ -1,50 +1,49 @@
-var logger = log4javascript.getLogger("uniqueName");
-logger.setLevel(log4javascript.Level.ALL);
-logger.addAppender(new log4javascript.BrowserConsoleAppender());
-window.logger = logger;
-logger.debug("debug: index.html::log4javascript ready.");
 
 require.config({
     baseUrl: "./js",
     waitSeconds: 10,
-    paths: {},
 
-    packages: [
+    shim:{
+        easel: {
+            exports:'createjs'
+            },
 
-        {
-            name: "createjs",
-            location: "libs/easel/",
-            main: "easeljs-0.5.0.min"
-
+        tween:{
+            deps: ["easel"],
+            exports: "tween"
         },
 
-        {
-            name: "jquery",
-            location: "./libs/jquery",
-            main: "jquery"
+        underscore:{
+            exports: "_"
         },
-        {
-            name: "json2",
-            location: "./libs/json2",
-            main: "json2"
-        },
-        {
-            name: "underscore",
-            location: "./libs/underscore",
-            main: "underscore"
-        },
-        {
-            name: "backbone",
-            location: "./libs/backbone",
-            main: "backbone"
+
+        backbone:{
+            deps: [ "jquery", "underscore"],
+            exports: "Backbone"
         }
-    ]
+
+    },
+
+
+
+    paths: {
+
+        jquery: "./libs/jquery/jquery",
+        underscore: "./libs/underscore/underscore",
+        backbone: "./libs/backbone/backbone-min",
+        easel: "./libs/easel/easeljs-0.5.0.min",
+        tween: "./libs/tween/tweenjs-0.3.0.min"
+
+    }
+
+
+
 });
 
-
-require(["code/Game", "jquery", "createjs"], function(Game)
+require([  "code/Game" , "backbone"], function( Game )
 {
-    var g = new Game( document.getElementById("mainCanvas") );
+
+    var g = new Game( { canvas:document.getElementById("mainCanvas") } );
 
 });
 

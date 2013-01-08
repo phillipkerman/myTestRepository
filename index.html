@@ -15,7 +15,14 @@
 
 </body>
 
-<script src="js/libs/log4javascript/log4javascript_uncompressed.js"></script>
+<script type="dont_use" src="js/libs/log4javascript/log4javascript_uncompressed.js">
+    var logger = log4javascript.getLogger("uniqueName");
+    logger.setLevel(log4javascript.Level.ALL);
+    logger.addAppender(new log4javascript.BrowserConsoleAppender());
+    window.logger = logger;
+    logger.debug("debug: index.html::log4javascript ready.");
+</script>
+
 <script data-main="js/main" src="js/libs/require/require.js"></script>
 
 

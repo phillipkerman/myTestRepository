@@ -1,30 +1,49 @@
 (function()
 {
+    define(["jquery","underscore","backbone", "easel","code/Circle"],
+
+        function ($,_,Backbone, createjs, Circle){
+
+        var dispatcher = _.clone(Backbone.Events);
+
+        var Game = Backbone.Model.extend({
 
 
-    define(["code/Circle"], function (Circle){
+            initialize:   function(attrs){
 
-        var Game = function(canvas){
-
-           var stage = new createjs.Stage(canvas);
-
-           var circle = new createjs.Shape();
-           circle.graphics.beginFill("blue").drawCircle(0, 0, 50);
-           circle.x = 50;
-           circle.y = 50;
-           stage.addChild(circle);
+               // var stage = new createjs.Stage(this.get('canvas'));
+                var stage = new createjs.Stage(attrs.canvas);
 
 
-            var test = new Circle(100);
-            stage.addChild(test);
+                var test2 = new Circle(10, "blue",dispatcher);
+                test2.x = 0;
+                stage.addChild(test2) ;
+
+                dispatcher.on('customEvent', this.handler, this);
+
+                var test = new Circle(40,"red",dispatcher);
+                stage.addChild(test);
 
 
-            stage.update();
+                createjs.Ticker.addListener(stage);
+                createjs.Ticker.setFPS(50);
+                stage.update();
 
-        }
+            } ,
+            validate: function(attrs){
+                console.log("validating")
+            },
 
-       return Game;
-    });
+            handler: function (p){
+                console.log("handler " + p)
+            }
+
+        });
+
+         return Game;
+        });
+
 
 }
 )();
+
