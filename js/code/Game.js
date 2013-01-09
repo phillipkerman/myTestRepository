@@ -2,36 +2,42 @@
 {
     define(["jquery","underscore","backbone", "easel","code/Circle"],
 
-        function ($,_,Backbone, createjs, Circle){
+        function ($,_,Backbone, cjs, Circle){
 
-        var dispatcher = _.clone(Backbone.Events);
 
         var Game = Backbone.Model.extend({
 
 
             initialize:   function(attrs){
 
-               // var stage = new createjs.Stage(this.get('canvas'));
-                var stage = new createjs.Stage(attrs.canvas);
+                ///var stage = new cjs.Stage(this.get('canvas'));
+                var stage = new cjs.Stage(attrs.canvas);
 
+                var container = new cjs.Container();
+                stage.addChild( container );
 
-                var test2 = new Circle(10, "blue",dispatcher);
+                var test2 = new Circle(10, "blue");
                 test2.x = 0;
-                stage.addChild(test2) ;
+                container.addChild(test2) ;
 
-                dispatcher.on('customEvent', this.handler, this);
-
-                var test = new Circle(40,"red",dispatcher);
-                stage.addChild(test);
+                //console.log( window.dispatcher )
+                Common.dispatcher.on('customEvent', this.handler, this);
 
 
-                createjs.Ticker.addListener(stage);
-                createjs.Ticker.setFPS(50);
+
+                var test = new Circle(40,"red");
+                container.addChild(test);
+
+
+                cjs.Ticker.addListener(stage);
+                cjs.Ticker.setFPS(50);
+                cjs.Ticker.useRAF = true;
                 stage.update();
 
             } ,
+
             validate: function(attrs){
-                console.log("validating")
+                console.log("validating");
             },
 
             handler: function (p){

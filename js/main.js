@@ -40,8 +40,14 @@ require.config({
 
 });
 
-require([  "code/Game" , "backbone"], function( Game )
+
+var Common = {};
+
+
+require([  "code/Game" , "underscore", "backbone"], function( Game, _, Backbone )
 {
+
+    Common.dispatcher = _.extend({}, Backbone.Events);
 
     var g = new Game( { canvas:document.getElementById("mainCanvas") } );
 
