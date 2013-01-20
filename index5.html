@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+
+
+<script src="js/libs/jquery/jquery.js"></script>
+<script src="js/grayscale.js"></script>
+
+
+<script>
+
+    var SCREEN_WIDTH = window.innerWidth,
+            SCREEN_HEIGHT = window.innerHeight;
+
+    var canvas = document.createElement('canvas');
+    var c = canvas.getContext('2d');
+    canvas.id = "myCanvas";
+    canvas.width = SCREEN_WIDTH;
+    canvas.height = 10;//SCREEN_HEIGHT;
+
+    // Add our drawing canvas
+    document.body.appendChild(canvas);
+
+    //load the image
+    var image = new Image();
+    image.src = "images/robot.png";
+    image.id = "im"
+    window.document.body.appendChild( image );
+
+    window.addEventListener("load", init);
+
+    function init(){
+
+
+           console.log(document.body)
+
+
+
+       }
+</script>
+
+</body>
+</html>

@@ -11,20 +11,21 @@
 
         }
 
+
         var p = Circle.prototype = new cjs.Container();
 
         Circle.prototype.Container_initialize = p.initialize;
 
         Circle.prototype.initialize = function(radius, color) {
             this.Container_initialize();
-
+                         console.log("making circle " + radius)
             var circle = new cjs.Shape();
             circle.graphics.beginFill(color).drawCircle(0, 0, radius);
             circle.x = radius;
             circle.y = radius;
             this.addChild(circle);
 
-            circle.cache(-radius, -radius, radius*2, radius*2 );
+           circle.cache(-radius, -radius, radius*2, radius*2 );
             circle.onPress = function(evt) {
 
               var offset = {x: evt.target.x-evt.stageX, y: evt.target.y-evt.stageY};
